@@ -10,6 +10,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rack-cors'
 gem 'active_model_serializers'
 gem "auto_increment"
+gem 'sidekiq'
+gem 'sinatra'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
