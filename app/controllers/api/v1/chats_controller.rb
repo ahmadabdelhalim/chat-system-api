@@ -15,7 +15,7 @@ class Api::V1::ChatsController < ApplicationController
     @chat = @application.chats.new
     if @chat.valid?
       ChatCreatorWorker.perform_async(@chat.application_id)
-      render json: { chat_number: {'Success'} }, status: :created
+      render json: { chat_number: 'Success' }, status: :created
     end
   end
 
