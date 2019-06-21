@@ -2,7 +2,7 @@ class Api::V1::ApplicationsController < ApplicationController
   before_action :find_application, only: [:show, :update]
 
   def index
-    @applications = Application.all
+    @applications = Application.includes(:chats).all
     render json: @applications, each_serializer: Api::V1::ApplicationSerializer
   end
 
