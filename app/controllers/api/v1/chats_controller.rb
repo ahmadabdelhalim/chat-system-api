@@ -3,7 +3,7 @@ class Api::V1::ChatsController < ApplicationController
   before_action :find_chat, only: [:show, :update]
 
   def index
-    @chats = @application.chats
+    @chats = @application.chats.includes(:messages)
     render json: @chats, each_serializer: Api::V1::ChatSerializer
   end
 
@@ -26,6 +26,6 @@ class Api::V1::ChatsController < ApplicationController
   end
 
   def find_chat
-    @chat = @application.chats.find_by!(number: params[:number])
+    @chat = @application.chats.find_by!(chat_number: params[:chat_number])
   end
 end
