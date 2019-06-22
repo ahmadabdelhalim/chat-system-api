@@ -13,6 +13,8 @@ gem "auto_increment"
 gem 'sidekiq'
 gem 'sinatra'
 gem 'searchkick'
+gem 'oj'
+gem 'typhoeus'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

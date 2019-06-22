@@ -1,6 +1,6 @@
 class Message < ApplicationRecord
   # elastic search
-  searchkick
+  searchkick searchable: [:body]
 
   def search_data
     {
