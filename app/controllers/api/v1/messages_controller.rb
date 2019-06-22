@@ -5,7 +5,7 @@ class Api::V1::MessagesController < ApplicationController
 
   def index
     query = params[:body].presence || "*"
-    @messages = @chat.messages.search(query, includes: [:chat])
+    @messages = @chat.messages.search(query, match: :text_start, includes: [:chat])
     render json: @messages, each_serializer: Api::V1::MessageSerializer
   end
 
