@@ -13,4 +13,9 @@ class Chat < ApplicationRecord
                               initial: 1,
                               force: true,
                               lock: false
+
+  # methods
+  def messages_count
+    Rails.cache.fetch([self, "messages_count"], expires_in: 1.hour) { self.messages.size }
+  end
 end
