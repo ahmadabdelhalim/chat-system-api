@@ -6,5 +6,10 @@ class Application < ApplicationRecord
 
   # validations
   validates :name, presence: true
-  validates :access_token, uniqueness: true 
+  validates :access_token, uniqueness: true
+
+  # methods
+  def chats_count
+    Rails.cache.fetch([self, "chats_count"], expires_in: 1.hour) { self.chats.size }
+  end
 end
