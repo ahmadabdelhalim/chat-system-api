@@ -1,4 +1,13 @@
 class Message < ApplicationRecord
+  # elastic search
+  searchkick
+
+  def search_data
+    {
+      body: body
+    }
+  end
+
   # relations
   belongs_to :chat
 
