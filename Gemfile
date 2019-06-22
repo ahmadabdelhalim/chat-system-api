@@ -15,6 +15,7 @@ gem 'sinatra'
 gem 'searchkick'
 gem 'oj'
 gem 'typhoeus'
+gem 'redis-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
