@@ -21,7 +21,7 @@ class Api::V1::MessagesController < ApplicationController
     @message = @chat.messages.new(message_params)
     if @message.valid?
       message_number = $redis.incr("#{@message.chat_id}_messages_count")
-      MessageCreatorWorker.perform_async(@message.chat_id, @message.body)
+      MessageCreatorWorker.perform_async(@message.chat_id, @message.body, message_number)
       render json: { message_number: message_number }, status: :created
     else
       render json: @message.errors, status: :unprocessable_entity

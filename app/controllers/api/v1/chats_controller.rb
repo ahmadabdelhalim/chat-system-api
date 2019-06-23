@@ -15,7 +15,7 @@ class Api::V1::ChatsController < ApplicationController
     @chat = @application.chats.new
     if @chat.valid?
       chat_number = $redis.incr("#{@chat.application.access_token}_chats_count")
-      ChatCreatorWorker.perform_async(@chat.application_id)
+      ChatCreatorWorker.perform_async(@chat.application_id, chat_number)
       render json: { chat_number: chat_number }, status: :created
     else
       render json: @chat.errors, status: :unprocessable_entity

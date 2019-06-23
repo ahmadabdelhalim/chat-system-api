@@ -1,13 +1,4 @@
 class Message < ApplicationRecord
-  # elastic search
-  searchkick searchable: [:body], text_start: [:body]
-
-  def search_data
-    {
-      body: body
-    }
-  end
-
   # relations
   belongs_to :chat
 
@@ -15,10 +6,12 @@ class Message < ApplicationRecord
   validates :chat_id, :message_number, :body, presence: true
   validates :message_number, uniqueness: { scope: :chat_id }
 
-  # callbacks
-  auto_increment :message_number, 
-                              scope: [:chat_id],
-                              initial: 1,
-                              force: true,
-                              lock: false
+  # elasticsearch
+  searchkick searchable: [:body], text_start: [:body]
+
+  def search_data
+    {
+      body: body
+    }
+  end
 end
