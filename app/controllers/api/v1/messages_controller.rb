@@ -4,8 +4,12 @@ class Api::V1::MessagesController < ApplicationController
   before_action :find_message, only: [:show, :update]
 
   def index
-    query = params[:body].presence || "*"
-    @messages = @chat.messages.search(query, match: :text_start, includes: [:chat])
+    query = params[:body].presence
+    if query
+      @messages = @chat.messages.search(query, match: :text_start, includes: [:chat])
+    else
+      @messages = @chat.messages.all
+    end
     render json: @messages, each_serializer: Api::V1::MessageSerializer
   end
 
