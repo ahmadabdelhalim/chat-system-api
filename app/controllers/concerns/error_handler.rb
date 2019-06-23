@@ -3,8 +3,6 @@ module ErrorHandler
     klass.class_eval do
 
       rescue_from StandardError do |e|
-        puts e
-        puts e.backtrace.join('\n')
         respond(:standard_error, 500, 1000, "Internal Server Error")
       end
 
