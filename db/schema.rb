@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_06_21_230428) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["access_token"], name: "index_applications_on_access_token", unique: true
+    t.index ["name"], name: "index_applications_on_name"
   end
 
   create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_06_21_230428) do
     t.string "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["body"], name: "index_messages_on_body"
     t.index ["chat_id", "message_number"], name: "index_messages_on_chat_id_and_message_number", unique: true
     t.index ["chat_id"], name: "index_messages_on_chat_id"
     t.index ["message_number"], name: "index_messages_on_message_number"
