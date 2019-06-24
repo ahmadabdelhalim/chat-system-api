@@ -8,7 +8,7 @@ done
 echo "MySQL is up and running!"
 
 # wait for elasticsearch
-until nc -vz $ELASTICSEARCH_HOST 9200; do
+until nc -vz $ELASTICSEARCH_HOST $ELASTICSEARCH_PORT; do
   echo "Elasticsearch is not ready, sleeping..."
   sleep 4
 done
