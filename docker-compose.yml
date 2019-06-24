@@ -1,5 +1,47 @@
 version: "3"
 services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    restart: always
+    env_file:
+      - '.env'
+
+  worker:
+    build: .
+    stdin_open: true
+    tty: true
+    command: bundle exec sidekiq -q default -q mailers
+    volumes:
+      - .:/app:delegated
+      - bundle:/usr/local/bundle:delegated
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - '.env'
+
+  elasticsearch: 
+    image: elasticsearch:6.5.0
+    hostname: elasticsearch
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+
   web:
     build: .
     container_name: web
@@ -13,47 +55,12 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db
       - redis
+      - db
       - worker
+      - elasticsearch
     env_file: 
       - '.env'
-
-  db:
-    image: mysql:5.7
-    ports:
-      - "3306:3306"
-    restart: always
-    env_file:
-      - '.env'
-
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
-
-  worker:
-    build: .
-    stdin_open: true
-    tty: true
-    command: bundle exec sidekiq -q default -q mailers
-    volumes:
-      - .:/app:delegated
-      - bundle:/usr/local/bundle:delegated
-    depends_on:
-      - db
-      - redis
-    env_file:
-      - '.env'
-
-  elasticsearch: 
-    image: elasticsearch:6.5.0
-    hostname: elasticsearch
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    environment:
-      discovery.type: 'single-node'
 
 volumes:
   elasticsearch: {}
