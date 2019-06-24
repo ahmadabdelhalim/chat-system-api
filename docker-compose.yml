@@ -1,10 +1,7 @@
 version: "3"
 services:
   web:
-    build:
-      context: ./
-      dockerfile: ./config/docker/Dockerfile
-    image: chat-system
+    build: .
     container_name: web
     stdin_open: true
     tty: true
@@ -36,8 +33,7 @@ services:
       - "6379:6379"
 
   worker:
-    image: chat-system
-    container_name: worker
+    build: .
     stdin_open: true
     tty: true
     command: bundle exec sidekiq -q default -q mailers
@@ -60,5 +56,7 @@ services:
       discovery.type: 'single-node'
 
 volumes:
-  db:
-  bundle:
+  elasticsearch: {}
+  db: {}
+  redis: {}
+  bundle: {}
