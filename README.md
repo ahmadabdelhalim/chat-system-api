@@ -1,24 +1,41 @@
-# README
+# Chat System API (V1)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Table of Contents
 
-Things you may want to cover:
+- [Codebase](#codebase)
+  - [The stack](#the-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Docker Installation](#docker-installation)
 
-* Ruby version
+## Codebase
 
-* System dependencies
+### The stack
 
-* Configuration
+- [Ruby](https://www.ruby-lang.org/en/)
+- [Rails](https://rubyonrails.org/)
+- [Mysql](https://www.mysql.com/downloads/)
+- [Elasticsearch](https://www.elastic.co/)
+- [Nodejs](https://nodejs.org/en/)
+- [redis](https://redis.io/)
+- [Sidekiq](https://sidekiq.org/)
 
-* Database creation
+## Getting Started
 
-* Database initialization
+This section provides a high-level requirement & quick start guide for installing the application using Docker.
 
-* How to run the test suite
+### Prerequisites
 
-* Services (job queues, cache servers, search engines, etc.)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-* Deployment instructions
+### Docker Installation
 
-* ...
+1. Install `docker` and `docker-compose`
+1. `git clone git@github.com:ahmadabdelhalim/chat-system-api.git`
+1. `cd chat-system-api`
+1. run `docker-compose up`
+1. run spec `docker-compose exec web rspec`
+1. That's it! Navigate to `http://localhost:3000/rails/info/routes` to find all the routes.
+
+
